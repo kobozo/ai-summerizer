@@ -7,13 +7,18 @@ from pydantic import BaseModel, Field
 DEFAULT_CACHE_DURATION = 86400  # 24 hours in seconds
 
 
-class YoutubeChannelSettings(BaseModel):
-    """Settings for a YouTube channel."""
+class BaseSourceSettings(BaseModel):
+    """Base settings for any source."""
 
     enabled: bool = True
     id: str
     name: str
     type: str = "user"
+
+
+class YoutubeChannelSettings(BaseSourceSettings):
+    """Settings for a YouTube channel."""
+
     time_period: str = "1d"
 
 

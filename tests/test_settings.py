@@ -1,11 +1,44 @@
 """Test settings models."""
 from ai_summerizer.models.settings import (
     DEFAULT_CACHE_DURATION,
+    BaseSourceSettings,
     Settings,
     Sources,
     YoutubeChannelSettings,
     YoutubeSettings,
 )
+
+
+def test_base_source_settings() -> None:
+    """Test base source settings."""
+    settings = BaseSourceSettings(
+        id="@test",
+        name="Test Source",
+    )
+
+    assert settings.enabled is True
+    assert settings.id == "@test"
+    assert settings.name == "Test Source"
+    assert settings.type == "user"
+
+
+def test_youtube_channel_settings() -> None:
+    """Test YouTube channel settings inheritance."""
+    settings = YoutubeChannelSettings(
+        id="@test",
+        name="Test Channel",
+        type="channel",
+        time_period="2d",
+    )
+
+    # Base settings
+    assert settings.enabled is True
+    assert settings.id == "@test"
+    assert settings.name == "Test Channel"
+    assert settings.type == "channel"
+
+    # YouTube specific settings
+    assert settings.time_period == "2d"
 
 
 def test_settings_model() -> None:
