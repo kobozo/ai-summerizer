@@ -56,7 +56,6 @@ def cache_content(func: Callable[[T], SourceContent]) -> Callable[[T], SourceCon
                     # Cache is still valid, return cached content
                     from ai_summerizer.models.source_content import SourceContent
                     return SourceContent.model_validate(cache_data["content"])
-
         # Cache miss or expired, call original function
         content = func(self)
 

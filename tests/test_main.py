@@ -1,20 +1,12 @@
-"""Unit tests for the main module."""
+"""Test main module."""
 
 from unittest.mock import patch
 
-from ai_summerizer.main import demo_function
+from ai_summerizer.__main__ import main_entry
 
 
-def test_demo_function():
-    """Test that demo_function returns the value from settings.the_var."""
-    with patch("ai_summerizer.main.settings") as mock_settings:
-        # Set up the mock
-        mock_settings.the_var = "test_value"
-
-        # Call the function
-        result = demo_function()
-
-        # Assert the result
-        assert result == "test_value"
-        # Verify the settings were accessed
-        assert mock_settings.the_var == "test_value"
+def test_main_entry() -> None:
+    """Test main entry point."""
+    with patch("sys.exit") as mock_exit:
+        main_entry()
+        mock_exit.assert_called_once_with(0)

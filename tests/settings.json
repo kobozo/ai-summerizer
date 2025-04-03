@@ -1,0 +1,19 @@
+{
+  "sources": {
+    "youtube": {
+      "settings": {
+        "api_key": "",
+        "cache_duration": 86400
+      },
+      "channels": [
+        {
+          "enabled": true,
+          "id": "example_channel_id",
+          "name": "Example Channel",
+          "type": "user",
+          "time_period": "1d"
+        }
+      ]
+    }
+  }
+}

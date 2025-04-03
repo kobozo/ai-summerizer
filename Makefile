@@ -20,6 +20,7 @@ all: install lint test
 help:
 	@echo "Please use 'make <target>', where <target> is one of"
 	@echo ""
+	@echo "  run         run the application"
 	@echo "  install     install packages and prepare environment"
 	@echo "  pre-commit  run pre-commit checks on all files"
 	@echo "  lint        run the code linters"
@@ -43,12 +44,12 @@ lint: $(INSTALL_STAMP) mypy ruff
 .PHONY: mypy
 mypy:
 	@echo "Running Mypy..."
-	$(MYPY) src/ai_summerizer
+	$(MYPY) src/$(PYMODULE)
 
 .PHONY: ruff
 ruff:
 	@echo "Running Ruff..."
-	$(RUFF) check --fix --unsafe-fixes src/ai_summerizer tests
+	$(RUFF) check --fix --unsafe-fixes src/$(PYMODULE) tests
 
 .PHONY: test
 test: $(INSTALL_STAMP)
@@ -63,3 +64,7 @@ clean:
 pre-commit: $(INSTALL_STAMP)
     # Run pre-commit checks on all files
 	$(POETRY) run pre-commit run --all-files
+
+.PHONY: run
+run: $(INSTALL_STAMP)
+	$(POETRY) run python -m $(PYMODULE)

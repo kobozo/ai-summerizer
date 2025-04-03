@@ -1,11 +1,21 @@
-"""Flask application endpoints for Supernova 2025 R2I API."""
+"""Flask application endpoints for AI Summerizer API."""
 
 from __future__ import annotations
 
-from ai_summerizer.config import settings
+import logging
+
+from ai_summerizer.core.process_sources import process_sources
+from ai_summerizer.models.settings import settings
+
+logger = logging.getLogger(__name__)
 
 
-def demo_function() -> str:
-    """Demo function that returns the_var from settings."""
-    return settings.the_var
+def main() -> None:
+    """Run the application."""
+    contents = process_sources(settings)
+    for content in contents:
+        logger.info(content)
 
+
+if __name__ == "__main__":
+    main()
