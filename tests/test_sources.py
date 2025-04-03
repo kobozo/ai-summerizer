@@ -1,6 +1,7 @@
-"""Tests for sources package."""
+"""Test source implementations."""
 from datetime import datetime, timezone
 
+from ai_summerizer.models.settings import Sources, YoutubeSettings
 from ai_summerizer.models.source_content import SourceContent, SourceDetails
 from ai_summerizer.sources.base import BaseSource
 
@@ -20,16 +21,13 @@ class TestSource(BaseSource):
 
 def test_base_source() -> None:
     """Test BaseSource implementation."""
-    config = {"test_key": "test_value"}
-    source = TestSource(config)
+    sources = Sources(youtube=YoutubeSettings())
+    source = TestSource(sources)
 
-    assert source.config == config
+    assert source.sources == sources
 
     content = source.get_content()
-    test_date = datetime(2024, 1, 1, tzinfo=timezone.utc)
-
-    assert isinstance(content, SourceContent)
     assert content.source.type == "test"
     assert content.source.details == "test details"
     assert content.content == "test content"
-    assert content.date == test_date
+    assert content.date == datetime(2024, 1, 1, tzinfo=timezone.utc)

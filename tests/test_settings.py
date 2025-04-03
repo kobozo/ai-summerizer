@@ -30,6 +30,7 @@ def test_settings_model() -> None:
         ),
     )
 
+    assert settings.sources.youtube is not None
     assert settings.sources.youtube.settings["api_key"] == "test_key"
     assert settings.sources.youtube.settings["cache_duration"] == DEFAULT_CACHE_DURATION
     assert len(settings.sources.youtube.channels) == 1
@@ -41,6 +42,11 @@ def test_settings_model_defaults() -> None:
     """Test settings model defaults."""
     settings = Settings()
 
-    assert settings.sources.youtube.settings["api_key"] == ""
-    assert settings.sources.youtube.settings["cache_duration"] == DEFAULT_CACHE_DURATION
-    assert len(settings.sources.youtube.channels) == 0
+    assert settings.sources.youtube is None
+
+
+def test_settings_model_no_youtube() -> None:
+    """Test settings model with no YouTube configuration."""
+    settings = Settings(sources=Sources())
+
+    assert settings.sources.youtube is None

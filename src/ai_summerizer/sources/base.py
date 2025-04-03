@@ -1,32 +1,135 @@
-"""Base class for content sources."""
-from abc import ABC, abstractmethod
-from typing import Any
+"""Base source class for content retrieval."""
+from __future__ import annotations
 
-from ai_summerizer.models.source_content import SourceContent
+from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ai_summerizer.models.source_content import SourceContent
+
+if TYPE_CHECKING:
+    from ai_summerizer.models.settings import Sources
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class BaseSource(ABC):
-    """Abstract base class for all content sources."""
+    """Base class for all content sources."""
 
-    def __init__(self, config: dict[str, Any]) -> None:
+    def __init__(self, sources: Sources) -> None:
         """
-        Initialize the source with its configuration.
+        Initialize source with configuration.
 
         Args:
-            config: Source-specific configuration dictionary
+            sources: Sources configuration containing settings for all sources.
 
         """
-        self.config = config
+        self.sources = sources
 
     def get_content(self) -> SourceContent:
         """
-        Get standardized content from the source.
-
-        This method implements the template pattern, where the actual content
-        retrieval is delegated to the abstract _get_content method.
+        Get content from source with standardized output.
 
         Returns:
-            SourceContent: Standardized content object
+            SourceContent: Standardized content output.
 
         """
         return self._get_content()
@@ -34,9 +137,9 @@ class BaseSource(ABC):
     @abstractmethod
     def _get_content(self) -> SourceContent:
         """
-        Abstract method to be implemented by concrete sources.
+        Implement source-specific content retrieval.
 
         Returns:
-            SourceContent: Standardized content object
+            SourceContent: Standardized content output.
 
         """

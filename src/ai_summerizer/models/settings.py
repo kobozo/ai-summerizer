@@ -32,7 +32,7 @@ class YoutubeSettings(BaseModel):
 class Sources(BaseModel):
     """Sources configuration."""
 
-    youtube: YoutubeSettings = Field(default_factory=YoutubeSettings)
+    youtube: YoutubeSettings | None = Field(default=None)
 
 
 class Settings(BaseModel):
