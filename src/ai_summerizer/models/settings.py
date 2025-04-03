@@ -7,6 +7,20 @@ from pydantic import BaseModel, Field
 DEFAULT_CACHE_DURATION = 86400  # 24 hours in seconds
 
 
+def default_youtube_settings() -> dict[str, str | int]:
+    """
+    Get default YouTube settings.
+
+    Returns:
+        Default settings.
+
+    """
+    return {
+        "api_key": "",
+        "cache_duration": DEFAULT_CACHE_DURATION,
+    }
+
+
 class BaseSourceSettings(BaseModel):
     """Base settings for any source."""
 
@@ -26,10 +40,7 @@ class YoutubeSettings(BaseModel):
     """Settings for YouTube source."""
 
     settings: dict[str, str | int] = Field(
-        default_factory=lambda: {
-            "api_key": "",
-            "cache_duration": DEFAULT_CACHE_DURATION,
-        },
+        default_factory=default_youtube_settings,
     )
     channels: list[YoutubeChannelSettings] = Field(default_factory=list)
 

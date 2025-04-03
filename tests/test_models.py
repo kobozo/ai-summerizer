@@ -7,13 +7,20 @@ from ai_summerizer.models.source_content import SourceContent, SourceDetails
 def test_source_content_model() -> None:
     """Test SourceContent model creation and validation."""
     test_date = datetime(2024, 1, 1, tzinfo=timezone.utc)
-    source_details = SourceDetails(type="test", details="test details")
+    source_details = SourceDetails(
+        id="test_id",
+        name="Test Source",
+        type="test",
+        details="test details",
+    )
     content = SourceContent(
         source=source_details,
         content="test content",
         date=test_date,
     )
 
+    assert content.source.id == "test_id"
+    assert content.source.name == "Test Source"
     assert content.source.type == "test"
     assert content.source.details == "test details"
     assert content.content == "test content"

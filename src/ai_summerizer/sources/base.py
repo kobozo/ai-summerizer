@@ -4,11 +4,12 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from ai_summerizer.models.source_content import SourceContent
+from ai_summerizer.helpers.decorators.cache import cache_content
 
 if TYPE_CHECKING:
     from ai_summerizer.models.settings import Sources
+    from ai_summerizer.models.source_content import SourceContent
+
 
 class BaseSource(ABC):
     """Base class for all content sources."""
@@ -23,6 +24,7 @@ class BaseSource(ABC):
         """
         self.sources = sources
 
+    @cache_content
     def get_content(self) -> SourceContent:
         """
         Get content from source with standardized output.

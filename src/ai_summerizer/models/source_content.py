@@ -9,8 +9,10 @@ from pydantic import BaseModel, ConfigDict
 class SourceDetails(BaseModel):
     """Details about the source of the content."""
 
-    type: str
-    details: str
+    id: str
+    name: str
+    type: str = "user"
+    details: str = ""
 
 
 class SourceContent(BaseModel):

@@ -5,6 +5,11 @@ TESTS := tests
 INSTALL_STAMP := .install.stamp
 POETRY := $(shell command -v poetry 2> /dev/null)
 MYPY := $(shell command -v mypy 2> /dev/null)
+PYTHON=poetry run python
+PYTEST=poetry run pytest
+MYPY=poetry run mypy
+RUFF=poetry run ruff
+COVERAGE_MIN=90
 
 .DEFAULT_GOAL := help
 
@@ -33,18 +38,21 @@ $(INSTALL_STAMP): pyproject.toml
 	touch $(INSTALL_STAMP)
 
 .PHONY: lint
-lint: $(INSTALL_STAMP)
-    # Configured in pyproject.toml
-    # Skips mypy if not installed
-    #
-    # $(POETRY) run black --check $(TESTS) $(PYMODULE) --diff
-	@if [ -z $(MYPY) ]; then echo "Mypy not found, skipping..."; else echo "Running Mypy..."; $(POETRY) run mypy $(PYMODULE) $(TESTS); fi
-	@echo "Running Ruff..."; $(POETRY) run ruff check . --fix
+lint: $(INSTALL_STAMP) mypy ruff
+
+.PHONY: mypy
+mypy:
+	@echo "Running Mypy..."
+	$(MYPY) src/ai_summerizer
+
+.PHONY: ruff
+ruff:
+	@echo "Running Ruff..."
+	$(RUFF) check --fix --unsafe-fixes src/ai_summerizer tests
 
 .PHONY: test
 test: $(INSTALL_STAMP)
-    # Configured in pyproject.toml
-	$(POETRY) run pytest
+	$(PYTEST)
 
 .PHONY: clean
 clean:
