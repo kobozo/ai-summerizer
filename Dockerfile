@@ -39,7 +39,7 @@ COPY --from=builder /usr/local/lib/python3.13/site-packages /usr/local/lib/pytho
 COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy the content of your source directory to the /app directory
-COPY src/project_name project_name
+COPY src/ai_summerizer ai_summerizer
 
 # Run the Flask application
-ENTRYPOINT ["python", "project_name/main.py"]
+ENTRYPOINT ["python", "ai_summerizer/main.py"]

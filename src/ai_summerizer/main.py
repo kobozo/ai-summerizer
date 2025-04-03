@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from project_name.config import settings
+from ai_summerizer.config import settings
 
 
 def demo_function() -> str:
